@@ -3,184 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HNL | S46 DRAFT LOTTERY</title>
+    <title>HNL S46 | DRAFT BOARD</title>
     <style>
         :root {
             --hnl-gold: #c9a05a;
-            --neon-cyan: #00f2ff;
-            --panthers-red: #ff0000;
-            --midnight: #080a0c;
-            --panel-dark: rgba(20, 25, 30, 0.8);
+            --panthers-red: #cc0000;
+            --ice-slate: #0f1216;
+            --panel-matte: rgba(255, 255, 255, 0.03);
+            --text-dim: #a0a0a0;
         }
 
         body {
-            background-color: var(--midnight);
-            color: white;
-            font-family: 'Impact', 'Arial Black', sans-serif;
+            background-color: var(--ice-slate);
+            color: #eeeeee;
+            font-family: 'Arial Black', sans-serif;
             margin: 0;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            /* Deep Heavy Atmosphere */
-            background: 
-                radial-gradient(circle at 50% -20%, rgba(0, 242, 255, 0.2) 0%, transparent 60%),
-                radial-gradient(circle at 50% 120%, rgba(201, 160, 90, 0.1) 0%, transparent 50%),
-                linear-gradient(180deg, #080a0c 0%, #030405 100%);
-            background-attachment: fixed;
-            overflow-x: hidden;
+            /* Subdued, low-strain background */
+            background: linear-gradient(180deg, #12161b 0%, #080a0c 100%);
         }
 
         header {
-            background: rgba(0, 0, 0, 0.9);
+            background: #000;
             display: flex;
             align-items: center;
-            padding: 40px 100px;
-            border-bottom: 8px solid var(--hnl-gold);
-            box-shadow: 0 10px 60px rgba(0,0,0,0.8);
+            padding: 30px 80px;
+            border-bottom: 5px solid var(--hnl-gold);
+            box-shadow: 0 5px 30px rgba(0,0,0,0.5);
         }
 
         .hnl-shield {
-            background: linear-gradient(135deg, var(--hnl-gold), #8a6d3b);
+            background: var(--hnl-gold);
             color: #000;
-            padding: 25px 35px;
-            font-size: 3.5rem;
+            padding: 20px 30px;
+            font-size: 3rem;
+            font-weight: 900;
             clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-            margin-right: 50px;
-            box-shadow: 0 0 40px var(--hnl-gold);
+            margin-right: 40px;
         }
 
         .header-title h1 { 
             margin: 0; 
-            font-size: 3.5rem; 
-            letter-spacing: 8px; 
+            font-size: 3rem; 
+            letter-spacing: 5px; 
             text-transform: uppercase;
-            text-shadow: 0 0 20px var(--neon-cyan);
         }
 
         .main-layout { 
             display: grid; 
-            grid-template-columns: 600px 1fr; 
-            gap: 60px; 
+            grid-template-columns: 550px 1fr; 
+            gap: 50px; 
             padding: 60px; 
-            max-width: 2200px; 
+            max-width: 2000px; 
             margin: auto; 
-            flex: 1; 
             width: 100%;
             box-sizing: border-box;
+            flex: 1;
         }
 
         .panel {
-            background: var(--panel-dark);
-            border: 3px solid rgba(255, 255, 255, 0.05);
-            padding: 60px;
-            border-radius: 50px;
-            backdrop-filter: blur(40px);
-            box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+            background: var(--panel-matte);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 50px;
+            border-radius: 35px;
+            backdrop-filter: blur(20px);
         }
 
         h2 { 
-            font-size: 1.8rem; 
-            letter-spacing: 8px; 
+            font-size: 1.6rem; 
+            letter-spacing: 6px; 
             color: var(--hnl-gold); 
-            margin-bottom: 50px; 
+            margin-bottom: 45px; 
             text-transform: uppercase;
-            border-left: 12px solid var(--neon-cyan);
-            padding-left: 25px;
+            border-left: 10px solid var(--hnl-gold);
+            padding-left: 20px;
         }
 
-        .input-group { display: flex; flex-direction: column; gap: 30px; margin-bottom: 60px; }
+        .input-group { display: flex; flex-direction: column; gap: 25px; margin-bottom: 50px; }
         
         input { 
-            padding: 30px; 
-            border-radius: 25px; 
-            border: 4px solid rgba(255,255,255,0.05); 
-            font-size: 1.8rem; 
-            background: rgba(0,0,0,0.5);
+            padding: 25px; 
+            border-radius: 15px; 
+            border: 2px solid rgba(255,255,255,0.1); 
+            font-size: 1.6rem; 
+            background: #000;
             color: #fff;
-            transition: 0.3s;
-            font-family: sans-serif;
+            transition: 0.2s;
         }
 
-        input:focus {
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 30px var(--neon-cyan);
-            outline: none;
-        }
+        input:focus { border-color: var(--hnl-gold); outline: none; }
 
         .btn-add { 
-            background: transparent; 
-            border: 5px solid var(--neon-cyan); 
-            color: var(--neon-cyan); 
-            padding: 25px; 
+            background: #222; 
+            border: none; 
+            color: white; 
+            padding: 20px; 
             cursor: pointer; 
             font-weight: 900; 
-            border-radius: 25px;
+            border-radius: 15px;
             text-transform: uppercase;
-            font-size: 1.6rem;
-            letter-spacing: 4px;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
         }
-        .btn-add:hover { background: var(--neon-cyan); color: #000; box-shadow: 0 0 50px var(--neon-cyan); }
+        .btn-add:hover { background: #333; }
 
         .btn-draw { 
-            background: linear-gradient(90deg, var(--hnl-gold), #fff, var(--hnl-gold));
-            background-size: 200% auto;
+            background: var(--hnl-gold);
             color: #000; 
             width: 100%; 
-            padding: 40px; 
-            font-size: 2.5rem; 
+            padding: 35px; 
+            font-size: 2.2rem; 
             font-weight: 900; 
             border: none; 
-            border-radius: 30px; 
+            border-radius: 20px; 
             cursor: pointer;
-            box-shadow: 0 20px 60px rgba(201, 160, 90, 0.4);
-            transition: 0.5s;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             text-transform: uppercase;
         }
-        .btn-draw:hover { background-position: right center; transform: scale(1.02); }
+        .btn-draw:hover { transform: translateY(-3px); filter: brightness(1.1); }
 
         .result-card {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 60px;
-            border-radius: 40px;
-            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 50px;
+            border-radius: 30px;
+            margin-bottom: 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
-            border: 3px solid rgba(255,255,255,0.05);
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: 0.3s;
         }
 
         .result-card:hover:not(.revealed) { 
-            background: rgba(0, 242, 255, 0.08);
-            border-color: var(--neon-cyan);
-            transform: scale(1.03);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--hnl-gold);
         }
 
-        .reveal-text { color: var(--neon-cyan); font-weight: 900; letter-spacing: 8px; font-size: 1.4rem; }
+        .reveal-hint { color: var(--text-dim); font-weight: 900; letter-spacing: 6px; font-size: 1.1rem; }
 
         .team-reveal { 
             display: none; 
-            font-size: 7rem; 
+            font-size: 6rem; 
             font-weight: 900; 
             text-transform: uppercase;
             width: 100%;
             text-align: center;
-            letter-spacing: -3px;
         }
 
-        .result-card.revealed .team-reveal { display: block; animation: powerOn 0.3s ease; }
-        .result-card.revealed .reveal-text, .result-card.revealed .pick-num { display: none; }
+        .result-card.revealed .team-reveal { display: block; }
+        .result-card.revealed .reveal-hint, .result-card.revealed .pick-num { display: none; }
 
-        @keyframes powerOn { 0% { opacity: 0; filter: brightness(5); } 100% { opacity: 1; filter: brightness(1); } }
+        .pick-num { font-size: 2.5rem; color: rgba(255,255,255,0.05); font-weight: 900; }
 
-        .pick-num { font-size: 3rem; color: rgba(255,255,255,0.05); }
+        footer { text-align: center; padding: 60px; color: var(--hnl-gold); font-size: 1.2rem; font-weight: 900; letter-spacing: 12px; opacity: 0.4; }
 
-        .footer-sig { text-align: center; padding: 40px; margin-top: 50px; border-top: 2px solid rgba(255,255,255,0.03); }
-        .coroic { font-size: 1.2rem; color: var(--hnl-gold); font-weight: 900; letter-spacing: 15px; text-transform: uppercase; opacity: 0.4; }
-
-        table { width: 100%; border-collapse: collapse; font-size: 2rem; }
-        td { padding: 25px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        table { width: 100%; border-collapse: collapse; font-size: 1.8rem; }
+        td { padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
     </style>
 </head>
 <body>
@@ -200,35 +181,30 @@
                 <input type="number" id="tOdds" placeholder="ODDS %">
                 <button class="btn-add" id="addBtn">ADD TEAM</button>
             </div>
-            
-            <div style="max-height: 500px; overflow-y: auto;">
+            <div style="max-height: 450px; overflow-y: auto;">
                 <table id="teamTable"></table>
             </div>
-
-            <button class="btn-draw" id="drawBtn" style="margin-top:50px;">RUN S46 LOTTERY</button>
+            <button class="btn-draw" id="drawBtn" style="margin-top:40px;">GENERATE S46 DRAFT</button>
         </section>
 
         <section class="panel">
             <h2>DRAFT BOARD</h2>
             <div id="results">
-                <div style="text-align: center; padding: 250px; color: rgba(255,255,255,0.03); font-size: 3rem; font-weight: 900;">AWAITING SYSTEM...</div>
+                <div style="text-align: center; padding: 200px; color: rgba(255,255,255,0.03); font-size: 3rem; font-weight: 900;">AWAITING DATA</div>
             </div>
-            <div class="footer-sig">
-                <div class="coroic">Made by Coroic</div>
-            </div>
+            <div style="text-align: center; margin-top: 50px; font-size: 0.8rem; color: #444; letter-spacing: 8px; text-transform: uppercase;">Made by Coroic</div>
         </section>
     </main>
 
+    <footer>S46 OFFICIAL</footer>
+
     <script>
         const hnlColors = {
-            "PANTHERS": "#ff0000", // Bloody Red confirmed
+            "PANTHERS": "#cc0000",
             "CANES": "#cc0000",
             "HURRICANES": "#cc0000",
             "DUCKS": "#f47a38",
-            "STARS": "#006439",
-            "RANGERS": "#0038a8",
-            "KRAKEN": "#00f2ff",
-            "DEFAULT": "#00f2ff"
+            "DEFAULT": "#c9a05a"
         };
 
         let teams = [];
@@ -238,29 +214,29 @@
             const odds = parseFloat(document.getElementById('tOdds').value);
             if (name && odds) {
                 teams.push({ name, odds });
-                update();
+                updateList();
                 document.getElementById('tName').value = "";
                 document.getElementById('tOdds').value = "";
             }
         };
 
-        function update() {
+        function updateList() {
             const list = document.getElementById('teamTable');
             list.innerHTML = teams.map((t, i) => `
                 <tr>
-                    <td style="font-weight:900;">${t.name}</td>
-                    <td style="color:var(--neon-cyan);">${t.odds}%</td>
-                    <td style="text-align:right"><button onclick="del(${i})" style="color:red; background:none; border:none; cursor:pointer; font-size:2.5rem;">✕</button></td>
+                    <td>${t.name}</td>
+                    <td style="color:var(--hnl-gold);">${t.odds}%</td>
+                    <td style="text-align:right"><button onclick="del(${i})" style="color:red; background:none; border:none; cursor:pointer; font-size:2.2rem;">✕</button></td>
                 </tr>
             `).join('');
         }
 
-        function del(i) { teams.splice(i, 1); update(); }
+        function del(i) { teams.splice(i, 1); updateList(); }
 
         document.getElementById('drawBtn').onclick = () => {
             if (teams.length === 0) return;
-            const resArea = document.getElementById('results');
-            resArea.innerHTML = "";
+            const area = document.getElementById('results');
+            area.innerHTML = "";
             
             let pool = JSON.parse(JSON.stringify(teams));
             let order = [];
@@ -284,19 +260,19 @@
                 const card = document.createElement('div');
                 card.className = 'result-card';
                 card.innerHTML = `
-                    <span class="pick-num">PICK #${pickNum}</span>
-                    <span class="reveal-text">REVEAL SELECTION</span>
-                    <div class="team-reveal" style="color:${color}; text-shadow: 0 0 60px ${color}">
-                        <div style="font-size: 1.5rem; color: #fff; letter-spacing: 12px; opacity: 0.3; margin-bottom: 10px;">DRAFT PICK #${pickNum}</div>
+                    <span class="pick-num">#${pickNum}</span>
+                    <span class="reveal-hint">CLICK TO REVEAL</span>
+                    <div class="team-reveal" style="color:${color};">
+                        <div style="font-size: 1.4rem; color: #666; letter-spacing: 10px; margin-bottom: 10px;">PICK #${pickNum}</div>
                         ${team.name}
                     </div>
                 `;
                 card.onclick = function() {
                     this.classList.add('revealed');
-                    this.style.borderLeft = `40px solid ${color}`;
-                    this.style.background = `rgba(255,255,255,0.06)`;
+                    this.style.borderLeft = `30px solid ${color}`;
+                    this.style.background = `rgba(255,255,255,0.05)`;
                 };
-                resArea.appendChild(card);
+                area.appendChild(card);
             });
         };
     </script>
