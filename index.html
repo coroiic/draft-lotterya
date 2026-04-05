@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HNL | S45 DRAFT LOTTERY</title>
+    <style>
+        :root {
+            --hnl-gold: #c9a05a;
+            --ice-blue: #00f2ff;
+            --deep-navy: #03070b;
+            --panel-glass: rgba(255, 255, 255, 0.03);
+        }
+
+        body {
+            background-color: var(--deep-navy);
+            color: white;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            /* Hockey "Midnight Ice" Aesthetic */
+            background: 
+                radial-gradient(circle at 50% -20%, rgba(0, 242, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 0% 100%, rgba(201, 160, 90, 0.05) 0%, transparent 40%),
+                linear-gradient(180deg, #050a14 0%, #03070b 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            padding: 15px 60px;
+            border-bottom: 2px solid var(--hnl-gold);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .hnl-shield {
+            background: linear-gradient(135deg, var(--hnl-gold), #8a6d3b);
+            color: #000;
+            font-weight: 900;
+            padding: 14px 20px;
+            font-size: 2.2rem;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            margin-right: 30px;
+            box-shadow: 0 0 30px rgba(201, 160, 90, 0.5);
+            text-shadow: 0 1px 2px rgba(255,255,255,0.3);
+        }
+
+        .title-container h1 { margin: 0; font-size: 1.6rem; letter-spacing: 3px; font-style: italic; }
+        .title-container p { margin: 0; color: var(--hnl-gold); font-size: 0.75rem; font-weight: 800; letter-spacing: 4px; }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 45, 85, 0.1);
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 45, 85, 0.3);
+            margin-left: 20px;
+        }
+
+        .live-dot {
+            height: 8px; width: 8px; background-color: #ff2d55;
+            border-radius: 50%; display: inline-block; margin-right: 8px;
+            box-shadow: 0 0 10px #ff2d55;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+        .main-layout { display: grid; grid-template-columns: 400px 1fr; gap: 40px; padding: 40px; max-width: 1550px; margin: auto; }
+
+        .panel {
+            background: var(--panel-glass);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(25px);
+        }
+
+        h2 { font-size: 0.8rem; letter-spacing: 4px; color: var(--hnl-gold); margin-bottom: 25px; text-transform: uppercase; opacity: 0.8; }
+
+        .entry-group { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
+        input { 
+            background: rgba(0,0,0,0.5); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            color: white; 
+            padding: 15px; 
+            border-radius: 10px; 
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        input:focus { border-color: var(--ice-blue); outline: none; }
+
+        .btn-add { background: #1a1f26; color: white; padding: 12px; border-radius: 10px; border: 1px solid #333; cursor: pointer; transition: 0.2s; }
+        .btn-add:hover { background: #252a33; border-color: var(--hnl-gold); }
+
+        .btn-generate { 
+            background: linear-gradient(90deg, var(--hnl-gold), #e0b46a); 
+            color: black; 
+            width: 100%; 
+            padding: 18px; 
+            font-size: 1.1rem; 
+            font-weight: 900;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 20px;
+            text-transform: uppercase;
+        }
+
+        .result-card {
+            background: rgba(10, 15, 25, 0.8);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .result-card:hover:not(.revealed) {
+            transform: scale(1.02);
+            border-color: var(--ice-blue);
+            background: rgba(20, 30, 45, 0.9);
+        }
+
+        .reveal-tag { color: var(--ice-blue); font-size: 0.7rem; font-weight: 800; letter-spacing: 2px; }
+
+        .result-card.revealed {
+            animation: iceFlip 0.6s ease forwards;
+        }
+
+        @keyframes iceFlip {
+            0% { transform: perspective(800px) rotateY(-15deg); opacity: 0; }
+            100% { transform: perspective(800px) rotateY(0deg); opacity: 1; }
+        }
+
+        .team-name-reveal { display: none; font-size: 1.8rem; font-weight: 900; letter-spacing: 1px; }
+        .result-card.revealed .team-name-reveal { display: block; }
+        .result-card.revealed .reveal-tag, .result-card.revealed .pick-label { display: none; }
+
+        .pick-label { color: #444; font-weight: 800; font-size: 1rem; }
+
+        table { width: 100%; border-collapse: collapse; }
+        td { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="hnl-shield">HNL</div>
+        <div class="title-container">
+            <h1>S45 DRAFT LOTTERY</h1>
+            <p>HOCKEY NETWORK LEAGUE OFFICIAL</p>
+        </div>
+        <div class="live-indicator">
+            <span class="live-dot"></span>
+            <span style="font-size: 0.7rem; font-weight: 900; color: #ff2d55;">LIVE</span>
+        </div>
+    </header>
+
+    <main class="main-layout">
+        <section class="panel">
+            <h2>COMMISSIONER TOOLS</h2>
+            <div class="entry-group">
+                <input type="text" id="teamIn" placeholder="TEAM NAME (e.g. CANES)">
+                <input type="number" id="oddsIn" placeholder="LOTTERY ODDS %">
+                <button class="btn-add" id="addBtn">ADD TO DRAW</button>
+            </div>
+            
+            <div style="max-height: 250px; overflow-y: auto; margin-bottom: 20px;">
+                <table>
+                    <tbody id="teamList"></tbody>
+                </table>
+            </div>
+
+            <button class="btn-generate" id="drawBtn">GENERATE DRAFT ORDER</button>
+            <button style="background:none; border:none; color:#444; width:100; cursor:pointer; margin-top:15px; font-size:0.7rem;" onclick="location.reload()">RESET ALL DATA</button>
+        </section>
+
+        <section class="panel">
+            <h2>DRAFT SELECTIONS</h2>
+            <div id="resultsArea">
+                <div style="text-align: center; color: #333; margin-top: 120px; font-weight: 900; letter-spacing: 2px;">
+                    AWAITING FINAL SEEDING...
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const hnlColors = {
+            "DUCKS": "#F47A38", "BRUINS": "#FFB81C", "SABRES": "#002654",
+            "FLAMES": "#C8102E", "CANES": "#CC0000", "HURRICANES": "#CC0000",
+            "BLACKHAWKS": "#CF0A2C", "AVALANCHE": "#6F263D", "BLUE JACKETS": "#002654",
+            "STARS": "#006439", "RED WINGS": "#CE1126", "EDMONTON": "#041E42",
+            "PANTHERS": "#041E42", "KINGS": "#111111", "WILD": "#154734",
+            "CANADIENS": "#AF1E2D", "PREDATORS": "#FFB81C", "DEVILS": "#CE1126",
+            "ISLANDERS": "#00539B", "RANGERS": "#0038A8", "SENATORS": "#C52032",
+            "FLYERS": "#F74902", "PENGUINS": "#FCB514", "SHARKS": "#006D75",
+            "KRAKEN": "#001628", "BLUES": "#002F87", "LIGHTNING": "#002868",
+            "MAPLE LEAFS": "#00205B", "CANUCKS": "#00205B", "GOLDEN KNIGHTS": "#B4975A",
+            "CAPITALS": "#041E42", "JETS": "#004C97", "UTAH": "#6CBEEB", "DEFAULT": "#c9a05a"
+        };
+
+        let draftEntries = [];
+
+        document.getElementById('addBtn').addEventListener('click', () => {
+            const name = document.getElementById('teamIn').value.trim().toUpperCase();
+            const odds = parseFloat(document.getElementById('oddsIn').value);
+            if (name && !isNaN(odds)) {
+                draftEntries.push({ name, odds });
+                updateList();
+                document.getElementById('teamIn').value = "";
+                document.getElementById('oddsIn').value = "";
+            }
+        });
+
+        function updateList() {
+            const list = document.getElementById('teamList');
+            list.innerHTML = draftEntries.map((t, i) => `
+                <tr>
+                    <td style="font-weight:900;">${t.name}</td>
+                    <td style="color:var(--ice-blue);">${t.odds}%</td>
+                    <td style="text-align:right;"><button onclick="remove(${i})" style="color:#ff2d55; background:none; border:none; cursor:pointer;">✕</button></td>
+                </tr>
+            `).join('');
+        }
+
+        function remove(i) { draftEntries.splice(i, 1); updateList(); }
+
+        document.getElementById('drawBtn').addEventListener('click', () => {
+            if (draftEntries.length === 0) return;
+            const area = document.getElementById('resultsArea');
+            area.innerHTML = "";
+            
+            let pool = JSON.parse(JSON.stringify(draftEntries));
+            let results = [];
+
+            while (pool.length > 0) {
+                let total = pool.reduce((s, t) => s + t.odds, 0);
+                let rand = Math.random() * total;
+                let sum = 0;
+                for (let i = 0; i < pool.length; i++) {
+                    sum += pool[i].odds;
+                    if (rand <= sum) {
+                        results.push(pool.splice(i, 1)[0]);
+                        break;
+                    }
+                }
+            }
+
+            results.reverse().forEach((team, i) => {
+                const pickNum = results.length - i;
+                const teamColor = hnlColors[team.name] || hnlColors["DEFAULT"];
+                const card = document.createElement('div');
+                card.className = 'result-card';
+                card.innerHTML = `
+                    <span class="pick-label">OVERALL PICK #${pickNum}</span>
+                    <span class="reveal-tag">READY FOR REVEAL</span>
+                    <div class="team-name-reveal" style="color:${teamColor}; text-shadow: 0 0 20px ${teamColor}88">
+                        <span style="font-size: 0.7rem; color: #fff; opacity: 0.4; display: block; margin-bottom: 5px;">PICK #${pickNum}</span>
+                        ${team.name}
+                    </div>
+                `;
+                card.onclick = function() {
+                    if (!this.classList.contains('revealed')) {
+                        this.classList.add('revealed');
+                        this.style.borderLeft = `10px solid ${teamColor}`;
+                        this.style.background = `linear-gradient(90deg, #050505, ${teamColor}15)`;
+                        this.style.boxShadow = `0 0 30px ${teamColor}22`;
+                    }
+                };
+                area.appendChild(card);
+            });
+        });
+    </script>
+</body>
+</html>
