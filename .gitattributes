@@ -1,2 +1,251 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HNL ULTRA-GLOW LOTTERY</title>
+    <style>
+        /* CSS STYLES - BUILT IN */
+        :root {
+            --hnl-gold: #c9a05a;
+            --neon-cyan: #00f2ff;
+            --dark-bg: #030508;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            background: linear-gradient(135deg, #030508 0%, #0a111a 50%, #030508 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            padding: 20px 50px;
+            border-bottom: 2px solid var(--hnl-gold);
+            box-shadow: 0 5px 30px rgba(0,0,0,0.8);
+        }
+
+        .hnl-shield {
+            background: var(--hnl-gold);
+            color: black;
+            font-weight: 900;
+            padding: 12px 18px;
+            font-size: 1.8rem;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            margin-right: 20px;
+            box-shadow: 0 0 20px rgba(201, 160, 90, 0.4);
+        }
+
+        .live-dot {
+            height: 10px; width: 10px; background-color: #ff0000;
+            border-radius: 50%; display: inline-block; margin-left: 10px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        .main-layout { display: grid; grid-template-columns: 380px 1fr; gap: 30px; padding: 40px; max-width: 1500px; margin: auto; }
+
+        .control-panel, .results-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(15px);
+        }
+
+        h2 { font-size: 0.8rem; letter-spacing: 3px; color: #666; margin-bottom: 20px; text-transform: uppercase; }
+
+        .entry-fields { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+        input { background: #000; border: 1px solid #333; color: white; padding: 12px; border-radius: 8px; font-size: 1rem; }
+
+        button { cursor: pointer; border-radius: 8px; border: none; font-weight: 800; text-transform: uppercase; transition: 0.3s; }
+
+        .primary-action { background: var(--hnl-gold); color: black; width: 100%; padding: 15px; font-size: 1.1rem; margin-top: 15px; }
+        .primary-action:hover { box-shadow: 0 0 20px var(--hnl-gold); transform: scale(1.02); }
+
+        #addBtn { background: #333; color: white; padding: 10px; }
+        #addBtn:hover { background: #444; }
+
+        .secondary-action { background: transparent; color: #444; border: 1px solid #222; width: 100%; margin-top: 10px; padding: 8px; }
+
+        .results-container { display: flex; flex-direction: column; gap: 12px; }
+
+        .result-item {
+            background: #0d1117;
+            padding: 22px;
+            border-radius: 10px;
+            border: 1px solid #222;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 900;
+            cursor: pointer;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .result-item:hover:not(.revealed) { background: #161b22; border-color: var(--neon-cyan); }
+
+        .reveal-text { color: var(--neon-cyan); font-size: 0.7rem; letter-spacing: 2px; font-style: italic; }
+
+        .result-item.revealed {
+            background: rgba(255, 255, 255, 0.05);
+            animation: flipIn 0.5s ease forwards;
+            cursor: default;
+        }
+
+        .result-item.revealed[data-pick="1"] {
+            box-shadow: 0 0 40px rgba(201, 160, 90, 0.5);
+            border: 2px solid var(--hnl-gold);
+            transform: scale(1.05);
+        }
+
+        .team-name { display: none; font-size: 1.5rem; text-transform: uppercase; }
+        .result-item.revealed .team-name { display: block; }
+        .result-item.revealed .reveal-text { display: none; }
+
+        @keyframes flipIn {
+            0% { transform: perspective(400px) rotateX(90deg); opacity: 0; }
+            100% { transform: perspective(400px) rotateX(0deg); opacity: 1; }
+        }
+
+        .ice-placeholder { text-align: center; color: #333; margin-top: 100px; font-style: italic; }
+
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th { text-align: left; color: #444; font-size: 0.7rem; padding-bottom: 10px; }
+        td { border-bottom: 1px solid #222; padding: 10px 0; }
+    </style>
+</head>
+<body>
+    <div class="hnl-wrapper">
+        <header>
+            <div class="hnl-shield">HNL</div>
+            <div class="title-container">
+                <h1>DRAFT LOTTERY <span class="live-dot"></span></h1>
+                <p>2026 OFFICIAL BROADCAST MODULE</p>
+            </div>
+        </header>
+
+        <main class="main-layout">
+            <section class="control-panel">
+                <h2>MANAGEMENT</h2>
+                <div class="entry-fields">
+                    <input type="text" id="teamInput" placeholder="TEAM NAME">
+                    <input type="number" id="oddsInput" placeholder="ODDS %">
+                    <button id="addBtn">ADD TEAM</button>
+                </div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr><th>TEAM</th><th>CHANCE</th><th></th></tr>
+                        </thead>
+                        <tbody id="tableBody"></tbody>
+                    </table>
+                </div>
+                <button id="simBtn" class="primary-action">GENERATE DRAW</button>
+                <button id="resetBtn" class="secondary-action">RESET ALL</button>
+            </section>
+
+            <section class="results-panel">
+                <h2>LIVE DRAFT ORDER</h2>
+                <div id="resultsList" class="results-container">
+                    <div class="ice-placeholder">AWAITING TEAM DATA...</div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        /* JAVASCRIPT - BUILT IN */
+        const hnlTeams = {
+            "DUCKS": "#F47A38", "BRUINS": "#FFB81C", "SABRES": "#002654",
+            "FLAMES": "#C8102E", "CANES": "#CC0000", "HURRICANES": "#CC0000",
+            "BLACKHAWKS": "#CF0A2C", "AVALANCHE": "#6F263D", "BLUE JACKETS": "#002654",
+            "STARS": "#006439", "RED WINGS": "#CE1126", "EDMONTON": "#041E42",
+            "PANTHERS": "#041E42", "KINGS": "#111111", "WILD": "#154734",
+            "CANADIENS": "#AF1E2D", "PREDATORS": "#FFB81C", "DEVILS": "#CE1126",
+            "ISLANDERS": "#00539B", "RANGERS": "#0038A8", "SENATORS": "#C52032",
+            "FLYERS": "#F74902", "PENGUINS": "#FCB514", "SHARKS": "#006D75",
+            "KRAKEN": "#001628", "BLUES": "#002F87", "LIGHTNING": "#002868",
+            "MAPLE LEAFS": "#00205B", "CANUCKS": "#00205B", "GOLDEN KNIGHTS": "#B4975A",
+            "CAPITALS": "#041E42", "JETS": "#004C97", "UTAH": "#6CBEEB", "DEFAULT": "#c9a05a"
+        };
+
+        let teams = [];
+
+        document.getElementById('addBtn').addEventListener('click', () => {
+            const name = document.getElementById('teamInput').value.trim().toUpperCase();
+            const odds = parseFloat(document.getElementById('oddsInput').value);
+            if (!name || isNaN(odds)) return;
+            teams.push({ name, odds });
+            renderTable();
+            document.getElementById('teamInput').value = "";
+            document.getElementById('oddsInput').value = "";
+        });
+
+        function renderTable() {
+            const body = document.getElementById('tableBody');
+            body.innerHTML = teams.map((t, i) => `
+                <tr><td style="color:white; font-weight:900;">${t.name}</td>
+                <td style="color:#00f2ff;">${t.odds}%</td>
+                <td><button onclick="removeTeam(${i})" style="color:red; background:none; font-size:10px;">X</button></td></tr>
+            `).join('');
+        }
+
+        function removeTeam(i) { teams.splice(i, 1); renderTable(); }
+
+        document.getElementById('simBtn').addEventListener('click', () => {
+            if (teams.length === 0) return;
+            const results = document.getElementById('resultsList');
+            results.innerHTML = "";
+            let drawPool = [...teams];
+            let finalOrder = [];
+
+            while (drawPool.length > 0) {
+                let weighted = [];
+                drawPool.forEach((t, idx) => {
+                    for (let i = 0; i < t.odds * 10; i++) weighted.push(idx);
+                });
+                const winnerIdx = weighted[Math.floor(Math.random() * weighted.length)];
+                finalOrder.push(drawPool.splice(winnerIdx, 1)[0]);
+            }
+
+            finalOrder.reverse().forEach((t, i) => {
+                const pickNumber = finalOrder.length - i;
+                const color = hnlTeams[t.name] || hnlTeams["DEFAULT"];
+                const item = document.createElement('div');
+                item.className = 'result-item';
+                item.setAttribute('data-pick', pickNumber);
+                item.innerHTML = `
+                    <span style="color:#666;">PICK #${pickNumber}</span>
+                    <span class="reveal-text">REVEAL TEAM</span>
+                    <span class="team-name" style="color:${color}; text-shadow: 0 0 15px ${color}66">${t.name}</span>
+                `;
+                item.addEventListener('click', function() {
+                    if (!this.classList.contains('revealed')) {
+                        this.classList.add('revealed');
+                        this.style.borderLeft = `8px solid ${color}`;
+                        this.style.background = `linear-gradient(90deg, #0a0a0a, ${color}15)`;
+                    }
+                });
+                results.appendChild(item);
+            });
+        });
+
+        document.getElementById('resetBtn').addEventListener('click', () => { location.reload(); });
+    </script>
+</body>
+</html>
