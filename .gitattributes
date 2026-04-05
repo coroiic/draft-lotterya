@@ -7,7 +7,7 @@
     <style>
         /* CSS STYLES - BUILT IN */
         :root {
-            --hnl-gold: #c9a05a;
+            --rho-gold: #c9a05a;
             --neon-cyan: #00f2ff;
             --dark-bg: #030508;
         }
@@ -130,12 +130,12 @@
     </style>
 </head>
 <body>
-    <div class="hnl-wrapper">
+    <div class="rho-wrapper">
         <header>
-            <div class="hnl-shield">HNL</div>
+            <div class="rho-shield">RHO</div>
             <div class="title-container">
                 <h1>DRAFT LOTTERY <span class="live-dot"></span></h1>
-                <p>2026 OFFICIAL BROADCAST MODULE</p>
+                <p>OFFICIAL BROADCAST BROUGHT TO YOU BY SSN</p>
             </div>
         </header>
 
